@@ -1,7 +1,17 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose')
+const urlSchema = require('./url-schema')
+const isUrl = require('is-url')
+
 const app = express();
+
+
+//connect to atlas
+mongoose.connect(process.env.MONGOOSE_URI, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true})
+
+const Url = mongoose.model('Urli', urlSchema)
 
 // Basic Configuration
 const port = process.env.PORT || 3000;
@@ -18,6 +28,10 @@ app.get('/', function(req, res) {
 app.get('/api/hello', function(req, res) {
   res.json({ greeting: 'hello API' });
 });
+
+app.post('/api/shorturl', (req, res => {
+
+}))
 
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
